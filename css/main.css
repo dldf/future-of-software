@@ -1,0 +1,339 @@
+:root {
+  --page-margin-y: 0.5in;
+  --page-margin-x: 1.2in;
+
+  color-scheme: light;
+  --text: #202124;
+  --muted: #5f6368;
+  --rule: #d7d9dc;
+  --paper: #ffffff;
+  --link: #185abc;
+  --measure: 68ch;
+  --space: 1.4rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 100%;
+  line-height: 1.6;
+  color: var(--text);
+  background: #eceef1;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  width: min(calc(100% - 2rem), 54rem);
+  margin: 2rem auto;
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+  background: var(--paper);
+  box-shadow: 0 0.25rem 1.5rem rgb(0 0 0 / 10%);
+}
+
+article {
+  display: flow-root;
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+h1 {
+  margin: 0 0 0.35em;
+  font-size: clamp(2rem, 6vw, 3rem);
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  margin: 1.8em 0 0.5em;
+  font-size: 1.5rem;
+}
+
+h3 {
+  margin: 1.5em 0 0.4em;
+  font-size: 1.18rem;
+}
+
+p,
+ul,
+ol,
+blockquote,
+figure {
+  margin-block: 0 var(--space);
+}
+
+p,
+li {
+  hanging-punctuation: first last;
+}
+
+img {
+    border: 1px solid black;
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+a:focus-visible {
+  outline: 0.2rem solid currentColor;
+  outline-offset: 0.2rem;
+}
+
+.byline,
+.subtitle {
+  color: var(--muted);
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  font-style: italic;
+}
+
+blockquote {
+  margin-inline: 0;
+  padding-inline-start: 1rem;
+  border-inline-start: 0.25rem solid var(--rule);
+}
+
+blockquote > p:first-child::before {
+  content: "“";
+  float: left;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 4em;
+  line-height: 0.7;
+  height: 0.7em;
+  transform: translateY(0.2em);
+  margin-inline-end: 0.1em;
+  color: #aaa;
+}
+
+figure {
+  display: flow-root;
+  margin-inline: 0;
+  break-inside: avoid;
+}
+
+figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+figcaption {
+  margin-block-start: 0.45rem;
+  color: var(--muted);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+
+/* Reusable widths and layout. Ordinary documents stack on phones below. */
+@media screen, print {
+  .full {
+    width: 100%;
+  }
+
+  .half {
+    width: 50%;
+  }
+
+  .third {
+    width: 33.333%;
+  }
+
+  .quarter {
+    width: 25%;
+  }
+
+  .left {
+    float: left;
+    margin: 0.35rem var(--space) 0.75rem 0;
+  }
+
+  .right {
+    float: right;
+    margin: 0.35rem 0 0.75rem var(--space);
+  }
+
+  /* Put this on the first element that must begin below a floated image. */
+  .clear-images {
+    clear: both;
+  }
+
+  /* Percentage widths shrink to leave room for the gap. */
+  .row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space);
+    margin-block-end: var(--space);
+  }
+
+  .row > * {
+    min-width: 0;
+    float: none;
+    margin: 0;
+  }
+}
+
+/* Phones: stack content and make sized elements full width. */
+@media screen and (max-width: 41.999rem) {
+  html:not(.paged-document) main {
+    width: 100%;
+    margin: 0;
+    padding: 1.1rem;
+    box-shadow: none;
+  }
+
+  html:not(.paged-document) :is(figure, .full, .half, .third, .quarter, .left, .right) {
+    float: none;
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  html:not(.paged-document) .row {
+    display: block;
+    margin-block-end: 0;
+  }
+
+  html:not(.paged-document) .row > * {
+    margin-block: 0 var(--space);
+  }
+}
+
+/* Manual pages share the printed content dimensions and typography.
+   Keep overflow visible: move excess content to another .page yourself. */
+html.paged-document {
+  --text: #000;
+  --muted: #333;
+  --link: #000;
+  font-size: 11pt;
+  line-height: 1.45;
+}
+
+.paged-document main {
+  width: 8.5in;
+  margin: 2rem auto;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.paged-document article {
+  max-width: none;
+}
+
+.paged-document h1 {
+  font-size: 3rem;
+}
+
+.paged-document .page {
+  display: flow-root;
+  width: 100%;
+  height: 11in;
+  /* Screen padding represents the physical page margins. */
+  padding: var(--page-margin-y) var(--page-margin-x);
+  margin: 0 0 2rem;
+  overflow: visible;
+  background: var(--paper);
+  outline: 1px dotted gray;
+  box-shadow: 0 0.25rem 1.5rem rgb(0 0 0 / 10%);
+}
+
+.paged-document .page > :last-child {
+  margin-block-end: 0;
+}
+
+/* Letter with the same margins shown in the browser. */
+@page {
+  size: letter;
+  margin: var(--page-margin-y) var(--page-margin-x);
+}
+
+@media print {
+  :root {
+    --text: #000;
+    --muted: #333;
+  }
+
+  html {
+    font-size: 11pt;
+    line-height: 1.45;
+    background: #fff;
+  }
+
+  body,
+  main,
+  article,
+  .paged-document main {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .paged-document .page {
+    /* Explicit breaks leave the rest of each sheet blank. Auto height avoids
+       rounding a full-height box onto an unwanted extra printed sheet. */
+    height: auto;
+    margin: 0;
+    /* @page supplies these margins when printing. */
+    padding: 0;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .paged-document .page + .page {
+    break-before: page;
+  }
+
+  h1,
+  h2,
+  h3,
+  figure,
+  blockquote {
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  /* Do not print the redundant linked-image URL after figures. */
+  figure a[href]::after {
+    content: none;
+  }
+}
